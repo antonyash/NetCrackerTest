@@ -1,88 +1,67 @@
+package Controller;
+
 import Models.Department;
 import Models.User;
 import Services.DepService;
 
-import java.util.List;
-
 public class Controller {
-  String getDepartments() {
-    String result = "";
-    DepService service = new DepService();
-    List<Department> departments = service.findAllDepartments();
 
-    for (Department dep : departments) {
-      result += dep.toString();
-      result += "\n";
-    }
-    return result;
-  }
-
-  String getUsers(int depid) {
-    String result = "";
+  public Department getDepartment(int depid) {
     DepService service = new DepService();
     Department department = service.findDepartment(depid);
-    List<User> users = department.getUsers();
-
-    for (User user : users) {
-      result += user.toString();
-      result += "\n";
-    }
-    return result;
+    return department;
   }
 
-  String getDepartment(int depid) {
-    DepService service = new DepService();
-    Department department = service.findDepartment(depid);
-    return department.toString();
-  }
-
-  String getUser(int userid) {
+  public String getUser(int userid) {
     DepService service = new DepService();
     User user = service.findUserById(userid);
     return user.toString();
   }
 
-  void editDepartment(int depid, String name, String chief) {
+  public void editDepartment(int depid, String name, String chief) {
     DepService service = new DepService();
     Department department = service.findDepartment(depid);
     department.setName(name);
     department.setChief(chief);
     service.updateDepartment(department);
+    department.updateView();
   }
 
-  void editUser(int userid, String fio, String mobile, int salary) {
+  public void editUser(int userid, String fio, String mobile, int salary) {
     DepService service = new DepService();
     User user = service.findUserById(userid);
     user.setFio(fio);
     user.setMobile(mobile);
     user.setSalary(salary);
     service.updateDepartment(user.getDepartment());
-
+    user.updateView();
   }
 
-  void dropDepartment(int depid) {
+  public void dropDepartment(int depid) {
     DepService service = new DepService();
     Department department = service.findDepartment(depid);
     service.deleteDepartment(department);
+    department.updateView();
   }
 
-  void dropUser(int userid) {
+  public void dropUser(int userid) {
     DepService service = new DepService();
     User user = service.findUserById(userid);
     Department department = user.getDepartment();
 
     department.removeUser(user);
     service.updateDepartment(department);
-    //service.deleteUser(user);
+    department.updateView();
   }
 
-  void newDepartment(String name, String chief) {
+  public void newDepartment(String name, String chief) {
     Department department = new Department(name, chief);
     DepService service = new DepService();
     service.saveDepartment(department);
+    department.updateView();
   }
 
-  void newUser(int depid, String fio, String mobile, int salary) {
+  public void newUser(int depid, String fio, String mobile, int salary) {
     DepService service = new DepService();
     Department department = service.findDepartment(depid);
 
@@ -90,5 +69,6 @@ public class Controller {
     department.addUser(user);
 
     service.updateDepartment(department);
+    department.updateView();
   }
 }

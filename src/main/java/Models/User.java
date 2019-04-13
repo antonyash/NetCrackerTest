@@ -1,6 +1,8 @@
 package Models;
 
 
+import View.View;
+
 import javax.persistence.*;
 
 @Entity
@@ -16,6 +18,12 @@ public class User {
   @ManyToOne(fetch = FetchType.EAGER)
   @JoinColumn(name = "DepId")
   private Department department;
+
+  private static View view;
+
+  public static void setView(View view) {
+    User.view = view;
+  }
 
   private String mobile;
 
@@ -72,5 +80,9 @@ public class User {
 
     this.department = department;
 
+  }
+
+  public void updateView(){
+    view.showUser(this);
   }
 }

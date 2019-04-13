@@ -1,6 +1,8 @@
 package Models;
 
 
+import View.View;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -33,6 +35,11 @@ public class Department {
     user.setDepartment(this);
   }
 
+  private static View view;
+
+  public static void setView(View view) {
+    Department.view = view;
+  }
   public void removeUser(User user) {
     users.remove(user);
   }
@@ -64,5 +71,9 @@ public class Department {
   @Override
   public String toString() {
     return id + " " + name + " " + chief;
+  }
+
+  public void updateView(){
+    view.showDepartment(this);
   }
 }
