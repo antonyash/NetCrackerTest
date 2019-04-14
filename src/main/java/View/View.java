@@ -3,7 +3,6 @@ package View;
 import Controller.Controller;
 import Models.Department;
 import Models.User;
-import Services.DepService;
 
 import java.util.List;
 import java.util.Scanner;
@@ -17,8 +16,8 @@ public class View {
 
   private void showDepartments() {
     String result = "";
-    DepService service = new DepService();
-    List<Department> departments = service.findAllDepartments();
+
+    List<Department> departments = controller.getAllDepartments();
 
     for (Department dep : departments) {
       result += dep.toString();

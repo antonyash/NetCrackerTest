@@ -4,8 +4,14 @@ import Models.Department;
 import Models.User;
 import Services.DepService;
 
+import java.util.List;
+
 public class Controller {
 
+  public List<Department> getAllDepartments(){
+    DepService service = new DepService();
+    return service.findAllDepartments();
+  }
   public Department getDepartment(int depid) {
     DepService service = new DepService();
     Department department = service.findDepartment(depid);

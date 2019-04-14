@@ -10,6 +10,10 @@ import java.util.List;
 @Entity
 @Table(name = "Departments")
 public class Department {
+  public int getId() {
+    return id;
+  }
+
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private int id;
